@@ -1,0 +1,22 @@
+
+package "oasis2opam_install" (
+  version = "$(pkg_version)"
+  description = ""
+  requires = ""
+  archive(byte  ) = "oasis2opam_install.cma"
+  archive(native) = "oasis2opam_install.cmxa"
+  plugin(byte  ) = "oasis2opam_install.cma"
+  plugin(native) = "oasis2opam_install.cmxs"
+  exists_if = "oasis2opam_install.cma"
+)
+
+package "ocamlbuild_goodies" (
+  version = "$(pkg_version)"
+  description = ""
+  requires = "ocamlbuild"
+  archive(byte  ) = "jane_street_ocamlbuild_goodies.cma"
+  archive(native) = "jane_street_ocamlbuild_goodies.cmxa"
+  plugin(byte  ) = "jane_street_ocamlbuild_goodies.cma"
+  plugin(native) = "jane_street_ocamlbuild_goodies.cmxs"
+  exists_if = "jane_street_ocamlbuild_goodies.cma"
+)
