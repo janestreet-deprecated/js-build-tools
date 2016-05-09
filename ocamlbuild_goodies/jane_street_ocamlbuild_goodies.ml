@@ -63,12 +63,22 @@ let track_external_deps = function
          Cmd (S [A "find"; A pkg.location; A "-type"; A "f";
                  Sh ">"; A (env ".%.files")]));
 
+    let stat, md5sum =
+      match run_and_read "uname" |> String.trim with
+      | "Darwin" ->
+        (S [A "stat"; A "-f"; A "%d:%i:%m"],
+         A "md5")
+      | _ ->
+        (S [A "stat"; A "-c"; A "%d:%i:%Y"],
+         A "md5sum")
+    in
+
     rule "Package files stats"
       ~deps:[".%.files"]
       ~prod:".%.stats"
       (fun env _ ->
-         Cmd (S [A "xargs"; A "-a"; A (env ".%.files");
-                 A  "stat"; A "-c"; A "%d:%i:%Y";
+         Cmd (S [A "xargs"; stat;
+                 Sh "<"; A (env ".%.files");
                  Sh ">"; A (env ".%.stats")
                 ]));
 
@@ -76,8 +86,8 @@ let track_external_deps = function
       ~deps:[".%.files"; ".%.stats"]
       ~prod:".%.md5sums"
       (fun env _ ->
-         Cmd (S [A "xargs"; A "-a"; A (env ".%.files");
-                 A "md5sum";
+         Cmd (S [A "xargs"; md5sum;
+                 Sh "<"; A (env ".%.files");
                  Sh ">"; A (env ".%.md5sums")]))
 
   | _ -> ()
