@@ -65,7 +65,7 @@ let track_external_deps = function
 
     let stat, md5sum =
       match run_and_read "uname" |> String.trim with
-      | "Darwin" | "FreeBSD" ->
+      | "Darwin" | "FreeBSD" | "NetBSD" ->
         (S [A "stat"; A "-f"; A "%d:%i:%m"],
          A "md5")
       | _ ->
