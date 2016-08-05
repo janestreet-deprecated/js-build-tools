@@ -1,0 +1,6 @@
+(library
+ ((name oasis2opam_install)
+  (wrapped false)
+  (public_name js-build-tools.oasis2opam_install)
+  (libraries ())
+  (preprocess ((no_preprocessing All)))))

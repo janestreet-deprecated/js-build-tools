@@ -65,7 +65,7 @@ let gen_section oc name files =
          | This fn -> fn
          | In_dir dir -> Filename.concat dir (Filename.basename src)
        in
-       if src = dst then
+       if src = Filename.basename src && src = dst then
          pr "  %S" src
        else
          pr "  %S {%S}" src dst)
@@ -119,6 +119,50 @@ let file ?dest ~section name =
   { section = section
   ; tags    = []
   ; extra   = [ name, Dest.of_dest_option dest ]
+  }
+
+let find_files path =
+  let ( / ) = Filename.concat in
+  let rec loop path relative_path acc =
+    Array.fold_left
+      (fun acc fn ->
+         let full_fn = path / fn in
+         let rel_fn =
+           match relative_path with
+           | None -> fn
+           | Some p -> p / fn
+         in
+         if Sys.is_directory full_fn then
+           loop full_fn (Some rel_fn) acc
+         else
+           rel_fn :: acc)
+      acc
+      (Sys.readdir path)
+  in
+  loop path None [] |> List.sort String.compare
+
+let tree ?dest ~section path =
+  let extra =
+    find_files path
+    |> List.map (fun fn ->
+      let sub_dir =
+        if fn = Filename.basename  fn then
+          None
+        else
+          Some (Filename.dirname fn)
+      in
+      let dest : Dest.t =
+        match dest, sub_dir with
+        | None  , None   -> Infer
+        | None  , Some b -> In_dir b
+        | Some a, None   -> In_dir a
+        | Some a, Some b -> In_dir (Filename.concat a b)
+      in
+      (Filename.concat path fn, dest))
+  in
+  { section = section
+  ; tags    = []
+  ; extra   = extra
   }
 
 let generate ~package items =

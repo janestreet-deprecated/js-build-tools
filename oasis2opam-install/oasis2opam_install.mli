@@ -28,5 +28,8 @@ val oasis_exe : ?dest:string -> ?section:string -> string -> item
 (** A single file. *)
 val file : ?dest:string -> section:string -> string -> item
 
+(** A whole sub-tree *)
+val tree : ?dest:string -> section:string -> string -> item
+
 (** Produces a [package ^ ".install"] file *)
 val generate : package:string -> item list -> unit

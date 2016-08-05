@@ -1,0 +1,7 @@
+(library
+ ((name jane_street_ocamlbuild_goodies)
+  (wrapped false)
+  (public_name js-build-tools.ocamlbuild_goodies)
+  (public_release ((extra_deps (ocamlbuild))))
+  (flags (:standard -I +ocamlbuild))
+  (preprocess ((no_preprocessing All)))))
