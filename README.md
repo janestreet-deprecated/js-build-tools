@@ -4,6 +4,8 @@ Jane Street Build Tools
 This repository contains a few helpers that are used to build Jane
 Street packages.
 
+**This package is deprecated and no longer maintained. It is recommended to use [jbuilder](https://github.com/janestreet/jbuilder) instead** 
+
 ## opam2oasis_install
 
 This is a small library that we use to generate opam `.install` files
