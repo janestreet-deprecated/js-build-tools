@@ -1,4 +1,4 @@
-Jane Street Build Tools
+Jane Street Build Tools (deprecated)
 =======================
 
 This repository contains a few helpers that are used to build Jane
