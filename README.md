@@ -4,7 +4,7 @@ Jane Street Build Tools (deprecated)
 This repository contains a few helpers that are used to build Jane
 Street packages.
 
-**This package is deprecated and no longer maintained. It is recommended to use [jbuilder](https://github.com/janestreet/jbuilder) instead** 
+**This package is deprecated and no longer maintained. It is recommended to use [dune](https://dune.build) instead** 
 
 ## opam2oasis_install
 
